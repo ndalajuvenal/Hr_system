@@ -1,0 +1,62 @@
+{% extends 'home.html' %}
+
+{% load static %}
+{% block content %}
+<div class=" container   mt-5 ">
+        <form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="mt-10">
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>site d'exploitation de <span style="color: blue;">{{object.nom}} </span></h5>
+                    </div>
+                    <div class="col-md-3">
+                        
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-primary btn-sm" href="{% url 'siteList'  %}">retour</a>
+                    </div>
+                </div>
+    
+                {% csrf_token %}
+                <div class="row mt-3">
+                    <div class="col-md-6 form-group">
+                        <label for="nom">Denommination</label>
+                        {{ object.nom }}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="nom">Description</label>
+                        {{ object.description }}
+                    </div>
+
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-4">
+                       Adresse du site : {{ object.adresse }}
+                    </div>
+                    <div class="col-md-4">
+                        Numero de Contact: {{ object.phone }}
+                    </div>
+                    <div class="col-md-4">
+                        Adresse email :      {{ object.email}}
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        {% if  object.actif %}
+                        <h4>le site est actif</h4>
+                        {% else %}
+                        <h4>le site est inactif</h4>
+                        {% endif %}
+                       
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+</div>
+<div class="container  mt-2">
+    <div class="row">
+       
+    </div>
+</div>
+
+    {% endblock %}

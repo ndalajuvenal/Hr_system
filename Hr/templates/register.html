@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for message in messages %}
+<strong><i style="color: green;">{{message}}</i></strong>
+{% endfor %}
+
+<style>
+    .gradient-custom-3 {
+        /* fallback for old browsers */
+        background: #84fab0;
+
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+    }
+
+    .gradient-custom-4 {
+        /* fallback for old browsers */
+        background: #84fab0;
+
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+    }
+</style>
+<div class="container">
+    <section class="vh-100 bg-image"
+        style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+            <div class="container h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+                        <div class="card m-2" style="border-radius: 15px;">
+                            <div class="card-body  ">
+                                <h4 class="text-uppercase text-center mb-2">Create an account</h4>
+
+                                <form action="/register/" method="post">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="form-outline col-md-6 ">
+                                            <input type="text" id="username" name="username" required
+                                                class="form-control form-control-lg m-2" placeholder="username" />
+                                        </div>
+                                        <div class="form-outline col-md-6 ">
+                                            <input type="text" id="firstname" name="firstname" required
+                                                class="form-control form-control-lg m-2" placeholder="firstname" />
+                                        </div>
+                                    </div>
+                                    <div class="form-outline ">
+                                        <input type="text" id="lastname" name="lastname" required
+                                            class="form-control form-control-lg m-2" placeholder="lastname" />
+                                    </div>
+
+                                    <div class="form-outline ">
+                                        <input type="email" id="email" name="email" required
+                                            class="form-control form-control-lg m-2" placeholder="email" />
+                                    </div>
+
+                                    <div class="form-outline ">
+                                        <input type="password" id="password" name="password" required
+                                            class="form-control form-control-lg m-2" placeholder="password" />
+                                    </div>
+
+                                    <div class="form-outline ">
+                                        <input type="password" id="password1" name="password1" required
+                                            class="form-control form-control-lg m-3" placeholder="confirm password" />
+                                    </div>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit"
+                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                                    </div>
+
+                                    <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="{% url 'Auth_login' %}" 
+                                            class="fw-bold text-body"><u>Login here</u></a></p>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

@@ -1,0 +1,182 @@
+{% extends 'home.html' %}
+
+{% load static %}
+{% block content %}
+<div class="container mt-3">
+    <style>
+        .table {
+            font-size: 14px;
+            text-align: center;
+            width: 95%;
+            margin: auto;
+        }
+
+        .display_table {
+            border-bottom-right-radius: 20px;
+            padding-left: 1px;
+            padding-right: 1px;
+            padding-bottom: 20px;
+            box-shadow: 12px 12px 20px 6px #2e6da4;
+        }
+
+        .table tr:nth-child(odd) {
+            background: white;
+        }
+
+        .table tr:nth-child(even) {
+            background: white;
+        }
+
+        .header {
+            font-family: Helvetica;
+            color: black;
+            font-size: 21px;
+            text-align: center;
+            width: 100%;
+            display: block;
+            font-weight: normal;
+        }
+
+        th {
+            background-color: white;
+            color: black;
+        }
+    </style>
+    <center class="">
+        <div class="header text-right">{{header}}</div>
+    </center>
+    <table class="table  mt-3" id="tableSite">
+        <thead>
+            <tr class="text-center">
+                <!--<th class="">Count</th>-->
+                <th class="">Denommination</th>
+                <th>Departement</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        {% if queryset %}
+        {% for item in queryset %}
+        <tbody>
+            <tr class="text-center" style=" color:black;font-weight:500">
+                
+                <td><a href="{% url 'serviceDetail' item.pk %}">{{item.nom}}</td>
+                <td>{{item.departement}}</td>
+                <td class="">
+                    <centre>
+                        <a class="btn" href="{% url 'serviceUpdate' item.pk %}"> <img
+                                src="{% static 'hr/img/edit2.png' %}" style="width: 14px; height:18px"></a>
+                        <a class="btn" href="{% url 'serviceDelete' item.pk %}" style="color: blue"><img
+                                src="{% static 'hr/img/del1.png' %}" style="width: 14px; height:18px"></a>
+                    </centre>
+                </td>
+
+            </tr>
+        </tbody>
+        {% endfor %}
+        {% endif %}
+    </table>
+    <div class="pagination mt-5">
+        <span class="step-links">
+            {% if queryset.has_previous %}
+            <a href="?page=1"><img src="{% static 'hr/img/left.png' %}" style="width: 10px; height:14px"></a>
+            <a href="?page={{ queryset.previous_page_number }}"><img src="{% static 'hr/img/gauche.png' %}"
+                    style="width: 20px; height:24px"></a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}.
+            </span>
+
+            {% if queryset.has_next %}
+            <a href="?page={{ queryset.next_page_number }}"><img src="{% static 'hr/img/right.png' %}"
+                    style="width: 10px; height:14px"></a>
+            <a href="?page={{ queryset.paginator.num_pages }}"><img src="{% static 'hr/img/droite.png' %}"
+                    style="width: 20px; height:24px"></a>
+            {% endif %}
+        </span>
+    </div>
+    <div class="mt-3">
+        <!-- <a class="btn btn-outline-info btn-sm" href="{% url 'service'  %}">Gestion des services</a>-->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            Ajouter un service
+        </button>
+    </div>
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un service</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="mt-10">
+                        <fieldset>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <legend></legend>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-success btn-sm">Ajouter</button>
+                                </div>
+                                <div class="col-md-3">
+                                    <a class="btn btn-primary btn-sm" href="{% url 'serviceList'  %}">services</a>
+                                </div>
+                            </div>
+
+                            {% csrf_token %}
+                            <div class="row mt-3">
+                                <div class="col-md-12 form-group">
+                                    <label for="nom">Denommination</label>
+                                    {{ form.nom }}
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-12 form-group">
+                                    <label for="departement">Departement</label>
+                                    {{ form.departement }}
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-md-12 form-group">
+                                    <label for="description">Breve description du service</label>
+                                    {{ form.description }}
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+{% if not queryset %}
+<style>
+    .display_table {
+        display: none;
+    }
+
+    h4 {
+        font-family: Helvetica;
+        color: #04B404;
+        font-size: 40px;
+        text-align: center;
+        width: 100%;
+        text-shadow: 6px 6px 6px #c9c6c6;
+        display: block;
+        font-weight: normal;
+    }
+</style>
+<h4 style="text-align: center;">Pas d'enregistrements</h4>
+{% endif %}
+{% endblock content %}

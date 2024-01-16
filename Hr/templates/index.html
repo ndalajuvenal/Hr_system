@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% for message in messages %}
+{{message}}
+{% endfor %}
+
+{% if user.is_authenticated %} 
+<h5 style="color:black;"> {{message}}</h5>
+<button class="btn btn-danger btn-sm" type="submit" ><a href="{% url 'logout' %}" style="color: aliceblue;">Se deconnecter</a></button>
+{% else %}
+<button class="btn btn-primary btn-sm" type="submit" ><a href="{% url 'register' %}" style="color: aliceblue;">S'enregistrer</a></button>
+<button class="btn btn-success btn-sm" type="submit" ><a href="{% url 'Auth_login' %}" style="color: aliceblue;">Se connecter</a></button>
+{% endif %}
+
+
+{% endblock  %}

@@ -1,0 +1,126 @@
+{% extends 'home.html' %}
+
+{% load static %}
+{% block content %}
+<div class="container mt-3">
+    <style>
+        .table {
+            font-size: 13px;
+            text-align: center;
+            width: 95%;
+            margin: auto;
+        }
+    
+        .display_table {
+            border-bottom-right-radius: 20px;
+            padding-left: 1px;
+            padding-right: 1px;
+            padding-bottom: 20px;
+            box-shadow: 12px 12px 20px 6px #2e6da4;
+        }
+    
+        .table tr:nth-child(odd) {
+            background: white;
+        }
+    
+        .table tr:nth-child(even) {
+            background: white;
+        }
+    
+        .header {
+            font-family: Helvetica;
+            color: black;
+            font-size: 21px;
+            text-align: center;
+            width: 100%;
+            display: block;
+            font-weight: normal;
+        }
+    
+        th {
+            background-color:white;
+            color:black;
+        }
+    </style>
+<center class="">
+    <div class="row">
+    <div class="header text-right col-md-6 ">{{header}}</div>      
+    <div class="form-group  col-md-6">
+        <input id="search" class="form-control " type="text" placeholder="Search....">
+     </div>    
+    </div>     
+</center>
+<table class="table display_table mt-3" id="tableSite">
+    <thead>
+        <tr class="text-center" style="font-weight: normal;">
+            <th class="" >count</th>
+            <th class="">Matricule</th>
+            <th>Nom</th>
+            <th>Date naissance</th>
+            <th>Statut</th>
+            <th></th>
+        </tr>
+    </thead>
+
+        {% if queryset %}
+        {% for instance in queryset %}
+    <tbody>
+        <tr class="text-center" style="font-weight:normal; color:black">
+            <td>{{ instance.pk }}</td>
+            <td>{{instance.employe}}</td>
+            <td><a href="{% url 'familleDetail' instance.pk %}">{{instance.nomComplet}}</td>    
+            <td>{{instance.Calcul_age}} ans</td>      
+            <td>{{instance.get_statut_display}}</td>   
+             <td class="">
+                        <centre>
+                            <a class="btn" href="{% url 'familleUpdate' instance.pk %}"> <img src="{% static 'hr/img/edit2.png' %}" style="width: 14px; height:18px"></a>
+                            <a class="btn" href="{% url 'familleDelete' instance.pk %}" style="color: blue"><img src="{% static 'hr/img/del1.png' %}" style="width: 14px; height:18px"></a>
+                        </centre>
+            </td>
+
+        </tr>
+    </tbody>
+        {% endfor %}
+        {% endif %}
+</table>
+<div class="pagination mt-5">
+    <span class="step-links">
+        {% if queryset.has_previous %}
+            <a href="?page=1"><img src="{% static 'hr/img/left.png' %}" style="width: 10px; height:14px"></a>
+            <a href="?page={{ queryset.previous_page_number }}"><img src="{% static 'hr/img/gauche.png' %}" style="width: 20px; height:24px"></a>
+        {% endif %}
+ 
+        <span class="current">
+            Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}.
+        </span>
+ 
+        {% if queryset.has_next %}
+            <a href="?page={{ queryset.next_page_number }}"><img src="{% static 'hr/img/right.png' %}" style="width: 10px; height:14px"></a>
+            <a href="?page={{ queryset.paginator.num_pages }}"><img src="{% static 'hr/img/droite.png' %}" style="width: 20px; height:24px"></a>
+        {% endif %}
+    </span>
+ </div>
+<div class="mt-3">
+    <a class="btn btn-outline-info btn-sm" href="{% url 'famille'  %}">Gestion des familles</a>
+</div>
+</div>
+{% if not queryset %}
+        <style>
+            .display_table {
+                display: none;
+            }
+
+            h4 {
+                font-family: Helvetica;
+                color: #04B404;
+                font-size: 40px;
+                text-align: center;
+                width: 100%;
+                text-shadow: 6px 6px 6px #c9c6c6;
+                display: block;
+                font-weight: normal;
+            }
+        </style>
+        <h4 style="text-align: center;">Pas d'enregistrements</h4>
+        {% endif %}
+{% endblock content %}

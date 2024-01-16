@@ -1,0 +1,50 @@
+{% extends 'home.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+<div class=" container  mt-3">
+  
+        <form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="">
+            <fieldset>
+                <div class="row mt-0">
+                    <div class="col-md-6">
+                        <legend>Gestion des employés</legend>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-outline-primary ">Ajouter</button>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-outline-primary " href="{% url 'employeList'  %}"> liste des employés</a>
+                    </div>
+                </div>
+    
+                {% csrf_token %}
+                <div class="row mt-5">
+                    <div class="col-md-2 form-group">
+                        {{ form.employe|as_crispy_field }}
+                    </div>
+                    <div class="col-md-4 form-group">
+                        {{ form.prenom|as_crispy_field }}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        {{ form.nom_postnom|as_crispy_field }}
+                    </div>
+                </div>
+                <div class="row mt-0">
+                    <div class="col-md-4 form-group">
+                        {{ form.statut|as_crispy_field }}
+                    </div>
+                    <div class="col-md-4 form-group">
+                        {{ form.genre|as_crispy_field}}
+                    </div>
+                    <div class="col-md-4 form-group">
+                        {{ form.birthday|as_crispy_field }}
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+</div>
+
+
+    {% endblock %}

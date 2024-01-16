@@ -1,0 +1,16 @@
+
+label {
+    font-family: Helvetica;
+    color: black;
+    font-size: 17px;
+    font-weight:200;
+}
+legend{
+    font-family: Helvetica;
+    color: green;
+    font-size: 20px;
+    font-weight:300;
+    font-style: oblique;
+    text-decoration: underline;
+
+}

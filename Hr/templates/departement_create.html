@@ -1,0 +1,53 @@
+{% extends 'home.html' %}
+
+{% load static %}
+{% block content %}
+<div class=" container  mt-5 ">
+
+        <form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="mt-10">
+            <fieldset>
+                <div class="row">
+                    <div class="col-md-6">
+                        <legend>Gestion des départements</legend>
+                    </div>
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-success btn-sm">Ajouter</button>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-danger btn-sm" href="{% url 'departementList'  %}">départements</a>
+                    </div>
+                </div>
+    
+                {% csrf_token %}
+                <div class="row mt-3">
+                    <div class="col-md-6 form-group">
+                        <label for="nom">Denommination</label>
+                        {{ form.nom }}
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label for="responsable">Responsable du departement</label>
+                        {{ form.responsable }}
+                    </div>
+
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-3 form-group">
+                        <label for="site">Site</label>
+                        {{ form.site }}
+                    </div>
+                    <div class="col-md-9 form-group">
+                        <label for="description">Breve description du departement</label>
+                        {{ form.description }}
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+</div>
+<div class="container  mt-2">
+    <div class="row">
+       
+    </div>
+</div>
+
+    {% endblock %}

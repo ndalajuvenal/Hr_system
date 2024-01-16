@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block navbar %}
+<div class="container-fluid mt-2">
+    <nav class="navbar navbar-expand-lg navbar-light " style="background-color:#328a00; ">
+        <a class="navbar-brand" href="{% url 'home' %}" style="color: white;font-weight:400; font-family:Helvetica">FONDATION</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'accueuil' %}" style="color: white;font-family:Helvetica">Home <span class="sr-only">(current)</span></a>
+                </li>
+                {% if user.is_authenticated %}    
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'employeList' %}" style="color: white;font-family:Helvetica">Employés</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'siteList' %}" style="color: white;font-family:Helvetica">Sites</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'departementList' %}" style="color: white;font-family:Helvetica">Departement</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'serviceList' %}" style="color: white;font-family:Helvetica">Service</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'fonctionList' %}" style="color: white;font-family:Helvetica">Fonction</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'categorieList' %}" style="color: white;font-family:Helvetica">Categorie</a>
+                </li>
+                <li class="nav-item">
+                    {% endif %}    
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" style="color: white;font-family:Helvetica" href="#" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Parametres
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{% url 'siteList' %}">sites</a>
+                        <a class="dropdown-item" href="{% url 'departementList' %}">départements</a>
+                        <a class="dropdown-item" href="{% url 'serviceList' %}">services</a>
+                        <a class="dropdown-item" href="{% url 'fonctionList' %}">fonctions</a>
+                        <a class="dropdown-item" href="{% url 'categorieList' %}">catégorie</a>
+                        <a class="dropdown-item" href="{% url 'familleList' %}">famille</a>
+                    </div>
+                </li>
+               
+                <li class="nav-item">
+                    <a class="nav-link" href="@123/" style="color: white;font-family:Helvetica">Admin</a>
+                </li>
+           
+            </ul>
+            <form class="form-inline my-2 my-lg-0" style="display: none;">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        
+            
+                {% if user.is_authenticated %}     
+               <h5 style="color: aquamarine;font-family:sans-serif">{{user.username}}</h5>
+            <a class="nav-link" href="{% url 'logout' %}"
+            
+                style="color: white;font-weight:300; font-family:Helvetica">Logout</a>    
+                {% else %} 
+                <a class="nav-link" href="{% url 'Auth_login' %}"
+                style="color: white;font-weight:300; font-family:Helvetica">Login</a>  
+                {% endif %}   
+        </div>
+    </nav>
+
+
+    
+</div>
+{% endblock %}
+{% block content %}
+
+<!-- Button trigger modal -->
+
+           <!-- Modal -->
+           <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+           aria-hidden="true">
+           <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <h5 class="modal-title" id="exampleModalLabel">{% block ModalTitle %}{% endblock %}</h5>
+                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                       </button>
+                   </div>
+                   <div class="modal-body">
+                       <form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="mt-10">
+                           <fieldset>
+                               <div class="row">
+                                   <div class="col-md-6">
+                                       <legend>Gestion des sites d'exploitation</legend>
+                                   </div>
+                             
+                                   <div class="col-md-3">
+                                       <button type="submit" class="btn btn-outline-success ">Ajouter</button>
+                                   </div>
+                                   <div class="col-md-3">
+                                       <a class="btn btn-outline-danger " href="{% url 'siteList'  %}">Sites disponibles</a>
+                                   </div>
+                               </div>
+                   
+                               {% csrf_token %}
+                               <div class="row mt-3">
+                                   <div class="col-md-6 form-group">
+                                       <label for="nom">Denommination</label>
+                                       {{ form.nom }}
+                                   </div>
+                                   <div class="col-md-6 form-group">
+                                       <label for="description">Breve description des activités du site</label>
+                                       {{ form.description }}
+                                   </div>
+               
+                               </div>
+                               <div class="row mt-5">
+                                   <div class="col-md-4 form-group">
+                                       <label for="adresse">Localisation du site</label>
+                                       {{ form.adresse }}
+                                   </div>
+                                   <div class="col-md-4 form-group">
+                                       <label for="phone">Contact du site</label>
+                                       {{ form.phone }}
+                                   </div>
+                                   <div class="col-md-4 form-group">
+                                       <label for="email">Adresse email du site</label>
+                                       {{ form.email}}
+                                   </div>
+                               </div>
+                               <div class="row mt-3">
+                                   <div class="col-md-12 form-group">
+                                       <label for="actif">Statut du site</label>
+                                       {{ form.actif }}
+                                   </div>
+                               </div>
+                           </fieldset>
+                       </form>
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                       <button type="button" class="btn btn-primary">Save changes</button>
+                   </div>
+               </div>
+           </div>
+       </div>
+  
+ 
+
+
+{% endblock %}
+
+</body>
+
+{% block footer %}
+<div class="container my-5">
+
+    
+
+</div>
+{% endblock %}
+<!-- End of .container -->
+<script src="{% static 'hr/js/bootstrap.bundle5.3.0.js' %}"></script>
+
+<script src="{% static 'hr/js/jquery3.7.0.js' %}"></script>
+<script src="{% static 'hr/js/htmx194.js' %}"></script>
+<script src="{% static 'hr/js/datatables.min.js' %}"></script>
+<script src="{% static 'hr/js/pdfmake.min.js' %}"></script>
+<script src="{% static 'hr/js/vfs_fonts.js' %}"></script>
+<script src="{% static 'hr/js/inputMask.js' %}"></script>
+<script src="{% static 'hr/js/jquery-3.6.0.min.js' %}"></script>
+<script src="{% static 'hr/js/jquery.toast.js' %}"></script>
+
+</html>

@@ -1,0 +1,58 @@
+{% extends 'home.html' %}
+
+{% load static %}
+{% block content %}
+<div class=" container  mt-3">
+  
+        <form action="" method="post" autocomplete="off" enctype="multipart/form-data" class="">
+            <fieldset>
+            <center>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <h5> <span style="color: green;">{{object.nom_postnom | title}} </span></h5>
+                    </div>
+                    <div class="col-md-3">
+          
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-outline-primary " href="{% url 'familleList'  %}"> liste des familles</a>
+                    </div>
+                </div>
+            </center>
+                {% csrf_token %}
+                <center class="jumbotron mt-3">
+                <div class="row mt-5">
+                    <div class="col-md-3 form-group">
+                        <label for="matricule">Matricule :</label>
+                        <h4 style="font-weight: bold; display:inline; font-size:medium">{{ object.employe }}</h4>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="prenom">Prenom :</label>
+                        <h4 style="font-weight: bold; display:inline; font-size:medium">{{ object.prenom }}</h4>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="nom_postnom">Nom Postnom :</label>
+                        <h4 style="font-weight: bold; display:inline; font-size:medium"> {{ object.nom_postnom }}</h4>
+                    </div>
+                    <div class="col-md-3 form-group">
+                        <label for="genre">Genre :</label>
+                        <h4 style="font-weight: bold; display:inline; font-size:medium"> {{ object.get_genre_display}}</h4>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-12 form-group">
+                        <label for="birthday">Date Naissance :</label>
+                        <h4 style="font-weight: bold; display:inline; font-size:medium"> {{ object.birthday }}</h4>
+                    </div>
+                </div>
+                </center>
+            </fieldset>
+        </form>
+</div>
+<div class="container  mt-2">
+    <div class="row">
+       
+    </div>
+</div>
+
+    {% endblock %}
